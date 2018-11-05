@@ -1,0 +1,34 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<body class="login">
+    <div style="height:100vh;">
+    <section class="intro">
+        <row>
+            <div class="col-lg-7 col-sm-12 loginleft">
+                <div class="loginbody" style="font-family:DistrictThin; font-size:18px;">
+                    <h3 class="display-3"><b>Get organized today!</b></h3>
+                    <p>ToDo Helper is the industry-leading web application for organizing your day-to-day activities. You can create and modify a reminder for any activity you may need. Sort your list by status, tags, or date created - find your task and become more productive!</p>
+                    <a class="btn btn-danger btn-lg" style="border-radius:25px;">Sign up now!</a>
+                </div>
+            </div>
+            <div class="col-lg-5 col-sm-12 loginright" style="font-family:DistrictThin; font-size:18px;">
+                
+                <form asp-action="LoginAction">
+                    <h3 class="display-3"><b>Log in</b></h3>
+                    <div class="form-group">
+                        <input type="text" name="username" class="form-control" id="formGroupExampleInput" placeholder="Email Address">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control" id="formGroupExampleInput2" placeholder="Password" />
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg" style="border-radius:25px;">Continue</button>
+                </form>
+            </div>
+        </row>
+    </section>
+        </div>
+
+</body>

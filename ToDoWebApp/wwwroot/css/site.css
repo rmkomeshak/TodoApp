@@ -1,0 +1,200 @@
+﻿html {
+    height: 100%;
+}
+
+.main-body {
+    background-color: rgba(1,1,1,0.05);
+}
+
+body .login {
+    height: 100%;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+.intro {
+    height: 100%;
+}
+
+.loginleft {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../images/pen-and-paper.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-color: #003399;
+    height: 100%;
+    color: #FFF;
+}
+
+.loginright {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../images/pattern.png");
+    background-repeat:repeat;
+    background-color: rgba(0, 51, 153, 0.2);
+    height: 100%;
+    color: #3d231b;
+}
+
+.loginbody{
+    text-align:left;
+    padding-left: 25%;
+    padding-right: 25%;
+}
+
+@media (max-width: 1200px) {
+    .loginleft {
+        height: 50%;
+    }
+
+    .loginright {
+        height: 50%;
+    }
+}
+
+@font-face {
+    font-family: DistrictThin;
+    src: url(../images/DistProTh.otf);
+}
+
+@font-face {
+    font-family: Kenzo;
+    src: url(../images/KenzoRegular.otf);
+}
+
+.sidenav {
+    height: 100%;
+    width: 18%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    padding-top: 10px;
+    transition: 0.5s;
+}
+
+    .sidenav a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 20px;
+        color: rgba(1, 1, 1, 0.6);
+        display: block;
+        transition: 0.3s;
+    }
+
+        .sidenav a:hover {
+            color: black;
+            background-color:rgba(0, 0, 0, 0.05);
+        }
+
+        .sidenav a.xbutton{
+            float:right;
+            margin-right:5%;
+            color:rgba(220,0,0,0.1);
+        }
+
+            .sidenav a.xbutton:hover {
+                background-color: transparent;
+                color: rgba(220,0,0,0.5);
+            }
+
+.main {
+    margin: 0px, 0px, 0px 0px;
+}
+
+.main-content{
+    margin-top: 1%;
+    margin-left:19%;
+}
+.bannercontainer{
+    position: relative;
+    text-align: center;
+    color:white;
+}
+
+.bannerimg {
+    max-width: 100%;
+    height: auto;
+}
+
+.bottom-left{
+    font-family:DistrictThin;
+    position:absolute;
+    bottom: 20%;
+    left: 20%;
+    text-align:left;
+}
+
+.list-title{
+    font-size:75px;
+}
+
+.sidebartab {
+    text-align: center;
+    margin-top: 40px;
+    margin-right: 95%;
+    font-size: 40px;
+    color: rgba(0,0,0,0.5);
+    background-color:white;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, .3);
+}
+
+.sidebartab a:hover{
+    color:black;
+}
+
+.custom{
+    font-family:DistrictThin;
+    padding: 5px 40px 5px 40px;
+    margin-right:32.5%;
+    margin-bottom:0.2%;
+}
+
+    .custom:hover {
+        background-color: #d5e5e7;
+        transition: 0.2s;
+    }
+
+.sidenav-right {
+    height: 100%;
+    width: 25%;
+    margin-left:75%;
+    position:absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    overflow-x: hidden;
+    padding-top: 10px;
+    transition: 0.5s;
+}
+
+    .sidenav-right a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: rgba(1, 1, 1, 0.6);
+        display: block;
+        transition: 0.3s;
+    }
+
+        .sidenav-right a:hover {
+            color: black;
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+    .sidenav-right .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+
+

@@ -1,0 +1,236 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{ 
+    var content = Model;
+    var selected_list = Model.CurrentList;
+    DateTime today = DateTime.Today;
+    string month = "";
+    var active_tasks = 0;
+
+    //simple switch statement for converting month value into a string
+    switch (today.Month.ToString())
+    {
+        case "1":
+            month = "January";
+            break;
+        case "2":
+            month = "February";
+            break;
+        case "3":
+            month = "March";
+            break;
+        case "4":
+            month = "April";
+            break;
+        case "5":
+            month = "May";
+            break;
+        case "6":
+            month = "June";
+            break;
+        case "7":
+            month = "July";
+            break;
+        case "8":
+            month = "August";
+            break;
+        case "9":
+            month = "September";
+            break;
+        case "10":
+            month = "October";
+            break;
+        case "11":
+            month = "November";
+            break;
+        case "12":
+            month = "December";
+            break;
+        default:
+            month = "January";
+            break;
+    }
+
+} 
+
+<head>
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body class="main-body">
+
+    <div>
+        @Html.Partial("_sidebarNavigation")
+    </div>
+    <div>
+        @Html.Partial("_rightSidebar")
+    </div>
+    <div class="main">
+        <div class="bannercontainer">
+
+            <img class="bannerimg" src="~/images/banner.png" />
+            <h1 class="bottom-left" align="left"><span class="list-title"><b>@selected_list.ListTitle</b></span> <br /> @today.DayOfWeek.ToString(), @month @today.Day.ToString()</h1>
+        </div>
+        <div class="main-content">
+            <div class="sorting">
+                <a asp-action="Index" asp-route-lid="@selected_list.ListID" asp-route-sortBy="all" class="btn btn-primary">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                    <span class="button-text">All</span>
+                </a>
+                <a asp-action="Index" asp-route-lid="@selected_list.ListID" asp-route-sortBy="active" class="btn btn-success">
+                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                    <span class="button-text">Active</span>
+                </a>
+                <a asp-action="Index" asp-route-lid="@selected_list.ListID" asp-route-sortBy="complete" class="btn btn-danger">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    <span class="button-text">Complete</span>
+                </a>
+                @if (content.SortBy == "complete")
+                {
+                    <button type="button" data-toggle="modal" data-target="#confirmDelete" class="btn btn-danger" style="float:right; margin-right:32.5%; clear:both;">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        <span class="button-text">Delete All Completed Tasks</span>
+                    </button>
+
+                }
+                else
+                {
+                    <button type="button" data-toggle="modal" data-target="#createTask" class="btn btn-success" style="float:right; margin-right:32.5%; clear:both;">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        <span class="button-text">New Task</span>
+                    </button>
+                }
+
+            </div>
+            @{
+                //calculating the number of active tasks in a list
+                foreach (var task in selected_list.Tasks)
+                {
+                    if (task.Status == 1)
+                    {
+                        active_tasks += 1;
+                    }
+                }
+            }
+
+            <p style="color:rgba(0,0,0,0.6); font-family:DistrictThin; margin-top:1%;">Active Tasks: @active_tasks</p>
+            <!--generating the tasks for the chosen list-->
+            @foreach (var task in selected_list.Tasks)
+            {
+                //this is for toggling selection - if it's already selected, a task ID of 0 will be passed back to deselect
+                var taskid = task.TaskID;
+                @if (content.CurrentTask.TaskID == task.TaskID)
+                {
+                    taskid = 0;
+                }
+
+                if (task.Status == 1)
+                {
+                    <a asp-action="Index" asp-route-lid="@selected_list.ListID" asp-route-tid="@taskid" asp-route-sortBy="@content.SortBy" style="text-decoration:none;">
+                        <div class="card custom">
+                            @if (content.CurrentTask.TaskID == task.TaskID)
+                            {
+                                <h3><b>@task.Title</b></h3>
+                            }
+                            else
+                            {
+                                <h3>@task.Title</h3>
+                            }
+
+                            <p style="color:rgba(0,0,0,0.6);">
+                                <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                Created @task.StartDate.ToShortDateString() at @task.StartDate.ToShortTimeString()
+                            </p>
+                        </div>
+                    </a>
+                }
+
+            }
+            <!--a second foreach in order to put the completed tasks at the bottom of the list-->
+            @foreach (var task in selected_list.Tasks)
+            {
+                var taskid = task.TaskID;
+                @if (content.CurrentTask.TaskID == task.TaskID)
+                {
+                    taskid = 0;
+                }
+
+                if (task.Status == 0)
+                {
+                    <a asp-action="Index" asp-route-lid="@selected_list.ListID" asp-route-tid="@taskid" asp-route-sortBy="@content.SortBy" style="text-decoration:none;">
+                        <div class="card custom">
+                            @if (content.CurrentTask.TaskID == task.TaskID)
+                            {
+                                <h3 style="color:rgba(0,0,0,0.6);"><strike><b>@task.Title</b></strike></h3>
+                            }
+                            else
+                            {
+                                <h3 style="color:rgba(0,0,0,0.4);"><strike>@task.Title</strike></h3>
+                            }
+                            <p style="color:rgba(0,0,0,0.6);">
+                                <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+                                Created @task.StartDate.ToShortDateString()
+                            </p>
+                        </div>
+                    </a>
+                }
+
+            }
+        </div>
+    </div>
+
+    <!-- Modal for creating a task -->
+    <div class="modal fade" id="createTask" tabindex="-1" role="dialog" aria-labelledby="CreateTask" aria-hidden="true" style="font-family:DistrictThin;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create a New Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form asp-action="CreateTask">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="text" name="title" class="form-control" placeholder="Enter the new task name" maxlength="30">
+                            <textarea style="margin-top:10px;" type="text" name="body" class="form-control" placeholder="Enter the task description" maxlength="255"></textarea>
+                            <input type="hidden" name="listid" value="@selected_list.ListID" />
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for delete all confirmation -->
+    <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="ConfirmDelete" aria-hidden="true" style="font-family:DistrictThin;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete all completed tasks?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form asp-action="DeleteAll">
+                    <input type="hidden" name="listid" value="@selected_list.ListID" />
+                    <input type="hidden" name="sortBy" value="@content.SortBy" />
+                    <div class="modal-footer" align="center">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+                        <button type="submit" class="btn btn-danger">Yes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+</body>

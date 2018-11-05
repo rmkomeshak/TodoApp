@@ -1,0 +1,68 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{ 
+    var content = Model;
+}
+
+<head>
+    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<div id="sidenav" class="sidenav" style="font-family:DistrictThin; box-shadow: 1px 2px 4px rgba(0, 0, 0, .3);">
+    <h3 style="padding: 8px 8px 8px 32px;"><b>My Lists (@content.TodoLists.Count)</b></h3>
+    @foreach (var list in content.TodoLists)
+    {
+        if (content.TodoLists.Count > 1)
+        {
+            <a asp-action="DeleteList" asp-route-listid="@list.ListID" class="xbutton"><i class="fa fa-times" aria-hidden="true"></i></a>
+        }
+        if (content.CurrentList.ListID == list.ListID)
+        {
+            <a asp-action="Index" asp-route-lid="@list.ListID" class="list-option"><i class="fa fa-list-ul" aria-hidden="true" style="color:rgba(66, 167, 244, 1)"></i> <b>@list.ListTitle</b></a>
+        }
+        else
+        {
+            <a asp-action="Index" asp-route-lid="@list.ListID" class="list-option"><i class="fa fa-list-ul" aria-hidden="true" style="color:rgba(66, 167, 244, 0.7)"></i> @list.ListTitle</a>
+        }
+        
+    }
+    @if (content.TodoLists.Count < 10)
+    {
+        <a href="#" data-toggle="modal" data-target="#createList"><i class="fa fa-plus" aria-hidden="true" style="color:rgba(66, 167, 244, 0.7)"></i> Add New List</a>
+    }
+    else
+    {
+        <a style="color:rgba(0,0,0,0.3);"><i class="fa fa-plus" aria-hidden="true" style="color:rgba(66, 167, 244, 0.3)"></i> Add New List</a>
+    }
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="createList" tabindex="-1" role="dialog" aria-labelledby="CreateLabel" aria-hidden="true" style="font-family:DistrictThin;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Create a New To Do List</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form asp-action="CreateList">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="text" name="title" class="form-control" placeholder="Enter the new list name" minlength="1" maxlength="13">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,39 @@
+﻿@media (max-width: 768px) {
+    .sidenav {
+        display:none;
+    }
+
+    .sidenav-right {
+        display: none;
+    }
+
+    .main-content{
+        margin-top:2%;
+        margin-left: 2%;
+        margin-right: -43%;
+    }
+
+    .button-text{
+        display:none;
+    }
+
+    .bannercontainer{
+        height:22vh;
+    }
+    
+    .bannerimg{
+        height:20vh;
+    }
+
+    .bottom-left{
+        font-size:20px;
+        margin-left: -10%;
+        margin-top: 1%;
+    }
+
+    .list-title{
+        font-size:50px;
+    }
+    
+    /*TODO: media queries for sidebars on mobile... maybe another time */
+}
